@@ -1,20 +1,28 @@
-export function Pokemon(pokemonObj) {
-    const imageUrl = (
-        'https://img.pokemondb.net/artwork/' +
-        pokemonObj.name +
-        '.jpg'
-      );
+export function Pokemon({ id, name, isCaught, handlePokemonToggle }) {
+    // const [caught, setCaught] = useState(false);
+
+    //  console.log(name, isCaught)
+
+    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+
     function catchPokemon(e) {
       e.preventDefault();
-      console.log(e.target.id)
+      // console.log(">>>");
+      handlePokemonToggle(id)
     }
-    return ( <div
-        className="onePokeCard"
+
+    return (
+      <div className="onePokeCard" style={{ background: isCaught ? "red" : "green" }}>
+        <p>{name}</p>
+        <img
+          className="pokemonCardPic"
+          src={imageUrl}
+        />  
+        <button
+          onClick={catchPokemon}
         >
-       <p>{pokemonObj.name}</p>
-       <img className="pokemonCardPic"
-       src={imageUrl}></img>
-       <button id={pokemonObj.id} onClick={catchPokemon}>  {1 < 0 ? "release" : "catch"} </button>
+          {isCaught ? "release" : "catch"}
+        </button>
       </div>
     );
 }
